@@ -14,15 +14,13 @@ bool same(char a, char b) {
 bool IsPalindrome(const string& s) {
 	if (s.size() <= 1) return true;
 
-	bool seen_a_letter = false;
 	int i = 0, j = s.size() - 1;
 	while (i < j) {
 		while (i < j && !letter(s[i])) i++;
 		while (i < j && !letter(s[j])) j--;
-		if (i < j && !same(s[i++], s[j--])) return false;
-		seen_a_letter = true;
+		if (!same(s[i++], s[j--])) return false;
 	}
-	return seen_a_letter || (i == j) && letter(s[i]);
+	return true;
 }
 
 int main(int argc, char* argv[]) {
