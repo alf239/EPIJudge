@@ -13,7 +13,7 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorder(
 	while (inorder[i] != pivot) i++;
 
 	auto &left = BinaryTreeFromPreorderInorder(
-		{ preorder.cbegin() + 1, preorder.cbegin() + i + 1},
+		{ preorder.cbegin() + 1, preorder.cbegin() + i + 1 },
 		{ inorder.cbegin(), inorder.cbegin() + i });
 	auto &right = BinaryTreeFromPreorderInorder(
 		{ preorder.cbegin() + i + 1, preorder.cend() },
