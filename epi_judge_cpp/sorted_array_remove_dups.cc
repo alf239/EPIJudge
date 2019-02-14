@@ -4,19 +4,29 @@
 using std::vector;
 // Returns the number of valid entries after deletion.
 int DeleteDuplicates(vector<int>* A_ptr) {
-  // TODO - you fill in here.
-  return 0;
+	vector<int> &A = *A_ptr;
+	if (!A.size()) return 0;
+	int j = 0;
+	for (int i = 0; i < A.size(); i++) {
+		if (A[i] != A[j]) {
+			j++;
+			if (i != j) {
+				A[j] = A[i];
+			}
+		}
+	}
+	return j + 1;
 }
 vector<int> DeleteDuplicatesWrapper(TimedExecutor& executor, vector<int> A) {
-  int end = executor.Run([&] { return DeleteDuplicates(&A); });
-  A.resize(end);
-  return A;
+	int end = executor.Run([&] { return DeleteDuplicates(&A); });
+	A.resize(end);
+	return A;
 }
 
 int main(int argc, char* argv[]) {
-  std::vector<std::string> args{argv + 1, argv + argc};
-  std::vector<std::string> param_names{"executor", "A"};
-  return GenericTestMain(
-      args, "sorted_array_remove_dups.cc", "sorted_array_remove_dups.tsv",
-      &DeleteDuplicatesWrapper, DefaultComparator{}, param_names);
+	std::vector<std::string> args{ argv + 1, argv + argc };
+	std::vector<std::string> param_names{ "executor", "A" };
+	return GenericTestMain(
+		args, "sorted_array_remove_dups.cc", "sorted_array_remove_dups.tsv",
+		&DeleteDuplicatesWrapper, DefaultComparator{}, param_names);
 }
