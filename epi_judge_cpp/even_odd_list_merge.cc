@@ -1,20 +1,20 @@
 #include "list_node.h"
 #include "test_framework/generic_test.h"
 shared_ptr<ListNode<int>> EvenOddMerge(const shared_ptr<ListNode<int>>& L) {
-	if (!L || !(L->next) || !(L->next->next)) return L;
+	if (!L || !(L->next)) return L;
 
-	shared_ptr<ListNode<int>> even = L, odd_start = L->next, odd = L->next, nextnext = L->next->next;
+	bool even = true;
+	shared_ptr<ListNode<int>> a = L, b = L->next, next = L->next->next, odd_start = L->next;
 
-	while (nextnext) {
-		even->next = nextnext;
-		even = even->next;
-		odd->next = nextnext->next;
-		odd = odd->next;
-		if (!odd) break;
-		nextnext = nextnext->next->next;
+	while (next) {
+		auto &grow = even ? a : b;
+		grow->next = next;
+		grow = grow->next;
+		next = next->next;
+		even = !even;
 	}
-	even->next = odd_start;
-	if (odd) odd->next = nullptr;
+	a->next = odd_start;
+	b->next = nullptr;
 
 	return L;
 }
