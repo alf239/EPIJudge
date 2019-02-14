@@ -5,10 +5,9 @@ using std::vector;
 // Returns the number of valid entries after deletion.
 int DeleteDuplicates(vector<int>* A_ptr) {
 	vector<int> &A = *A_ptr;
-	if (!A.size()) return 0;
-	int j = 0;
+	int j = -1;
 	for (int i = 0; i < A.size(); i++) {
-		if (A[i] != A[j]) {
+		if (j < 0 || A[i] != A[j]) {
 			j++;
 			if (i != j) {
 				A[j] = A[i];
