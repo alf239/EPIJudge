@@ -1,15 +1,9 @@
 #include <vector>
 #include <functional>
-#include <limits>
 #include "binary_tree_with_parent_prototype.h"
 #include "test_framework/generic_test.h"
 using std::vector;
-using std::pair;
 using std::function;
-
-// 1. left - step left
-// 2. up - consume the node, try right-left
-// 3. once right, and left again
 
 struct State {
 	BinaryTreeNode<int> * prev;
