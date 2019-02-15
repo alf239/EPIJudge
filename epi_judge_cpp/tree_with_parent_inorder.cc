@@ -11,8 +11,7 @@ struct State {
 };
 
 State right_or_up(State state) {
-	if (state.node->right) return { state.node, state.node->right.get() };
-	else return { state.node, state.node->parent };
+	return { state.node, state.node->right ? state.node->right.get() : state.node->parent };
 }
 
 State traverse(State state, const function<void(int)> &consume) {
