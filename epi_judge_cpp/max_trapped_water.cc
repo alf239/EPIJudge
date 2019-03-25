@@ -10,19 +10,10 @@ int GetMaxTrappedWater(const vector<int>& heights) {
 	while (r > l) {
 		int t = (r - l) * min(heights[l], heights[r]);
 		if (mx_t < t) mx_t = t;
-		if (heights[l] < heights[r]) {
-			int h = heights[l];
-			while (heights[l] <= h) l++;
-		}
-		else if (heights[l] > heights[r]) {
-			int h = heights[r];
-			while (heights[r] <= h) r--;
-		}
-		else {
-			int h = heights[r];
-			while (heights[l] <= h && l < r) l++;
-			while (heights[r] <= h && r > l) r--;
-		}
+		const int hl = heights[l];
+		const int hr = heights[r];
+		if (hr >= hl) while (l < r && heights[l] <= hl) l++;
+		if (hl >= hr) while (l < r && heights[r] <= hr) r--;
 	}
 	return mx_t;
 }
