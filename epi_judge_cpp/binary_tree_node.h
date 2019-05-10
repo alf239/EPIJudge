@@ -11,16 +11,17 @@
 using std::unique_ptr;
 
 
-template <typename T>
+template<typename T>
 struct BinaryTreeNode {
-  T data;
-  unique_ptr<BinaryTreeNode<T>> left, right;
-  
-  explicit BinaryTreeNode(const T& data) : data(data) {}
-  BinaryTreeNode(T data, unique_ptr<BinaryTreeNode<T>> left,
-                 unique_ptr<BinaryTreeNode<T>> right)
-      : data(data), left(std::move(left)), right(std::move(right)) {}
-  
+    T data;
+    unique_ptr<BinaryTreeNode<T>> left, right;
+
+    explicit BinaryTreeNode(const T &data) : data(data) {}
+
+    BinaryTreeNode(T data, unique_ptr<BinaryTreeNode<T>> left,
+                   unique_ptr<BinaryTreeNode<T>> right)
+            : data(data), left(std::move(left)), right(std::move(right)) {}
+
 };
 
 

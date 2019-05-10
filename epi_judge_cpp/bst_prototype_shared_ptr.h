@@ -9,13 +9,13 @@
 using std::shared_ptr;
 
 
-template <typename T>
+template<typename T>
 struct BstNode {
-  T data;
-  shared_ptr<BstNode<T>> left, right;
-  
-  explicit BstNode(const T& data) : data(data) {}
-  
+    T data;
+    shared_ptr<BstNode<T>> left, right;
+
+    explicit BstNode(const T &data) : data(data) {}
+
 };
 
 
