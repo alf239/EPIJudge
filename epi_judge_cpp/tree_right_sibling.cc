@@ -5,6 +5,7 @@
 #include "test_framework/timed_executor.h"
 
 using std::unique_ptr;
+using std::queue;
 
 template<typename T>
 struct BinaryTreeNode {
@@ -15,9 +16,35 @@ struct BinaryTreeNode {
     explicit BinaryTreeNode(T data) : data(data) {};
 };
 
+template<typename T>
+struct QEntry {
+    BinaryTreeNode<int> *tree;
+    int level;
+};
+
+
 void ConstructRightSibling(BinaryTreeNode<int> *tree) {
-    // TODO - you fill in here.
-    return;
+    if (tree == nullptr) return;
+
+    std::queue<QEntry<int>> q;
+    QEntry<int> prev{nullptr, -1};
+    q.push({tree, 0});
+    while (!q.empty()) {
+        QEntry<int> e = q.front();
+        q.pop();
+
+        if (e.tree->left != nullptr) {
+            q.push({e.tree->left.get(), e.level + 1});
+        }
+        if (e.tree->right != nullptr) {
+            q.push({e.tree->right.get(), e.level + 1});
+        }
+        if (prev.level == e.level) {
+            prev.tree->next = e.tree;
+        }
+
+        prev = e;
+    }
 }
 
 template<>
