@@ -7,10 +7,31 @@
 using std::string;
 using std::vector;
 
-unique_ptr<BinaryTreeNode<int>> ReconstructPreorder(
-        const vector<int *> &preorder) {
-    // TODO - you fill in here.
-    return nullptr;
+unique_ptr<BinaryTreeNode<int>> ReconstructPreorder(const vector<int *> &preorder) {
+    if (preorder.empty() || preorder[0] == nullptr) return nullptr;
+
+    unique_ptr<BinaryTreeNode<int>> root = std::make_unique<BinaryTreeNode<int>>(*(preorder[0]));
+    vector<BinaryTreeNode<int> *> path;
+    auto current = root.get();
+    path.emplace_back(nullptr);
+    path.emplace_back(current);
+    for (auto i = preorder.cbegin() + 1; i != preorder.cend(); i++) {
+        auto &elt = *i;
+        if (elt != nullptr) {
+            if (current == path.back()) {
+                current->left = std::make_unique<BinaryTreeNode<int>>(*elt);
+                current = current->left.get();
+            } else {
+                current->right = std::make_unique<BinaryTreeNode<int>>(*elt);
+                current = current->right.get();
+            }
+            path.push_back(current);
+        } else {
+            current = path.back();
+            path.pop_back();
+        }
+    }
+    return std::move(root);
 }
 
 unique_ptr<BinaryTreeNode<int>> ReconstructPreorderWrapper(
