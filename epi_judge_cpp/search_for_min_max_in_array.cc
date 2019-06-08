@@ -8,8 +8,12 @@ struct MinMax {
 };
 
 MinMax FindMinMax(const vector<int> &A) {
-    // TODO - you fill in here.
-    return {0, 0};
+    int smallest = A[0], largest = A[0];
+    for (auto const &a : A) {
+        if (a > largest) largest = a;
+        if (a < smallest) smallest = a;
+    }
+    return {smallest, largest};
 }
 
 template<>
