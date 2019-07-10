@@ -29,3 +29,6 @@ __pycache__/
 cpp_build
 
 epi_judge_java/java_build/
+
+# Project exclude paths
+/epi_judge_cpp/.cmake-build-debug/

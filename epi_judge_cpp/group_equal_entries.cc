@@ -1,6 +1,6 @@
-#include <iterator>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 #include "test_framework/generic_test.h"
 #include "test_framework/serialization_traits.h"
@@ -9,6 +9,7 @@
 
 using std::string;
 using std::vector;
+using std::unordered_map;
 
 struct Person {
     int age;
@@ -16,8 +17,16 @@ struct Person {
 };
 
 void GroupByAge(vector<Person> *people) {
-    // TODO - you fill in here.
-    return;
+    unordered_map<int, vector<Person>> by_age;
+    for (const auto &p : *people) {
+        by_age[p.age].emplace_back(p);
+    }
+    int i = 0;
+    for (const auto &pi : by_age) {
+        for (const auto &p : pi.second) {
+            (*people)[i++] = p;
+        }
+    }
 }
 
 template<>
