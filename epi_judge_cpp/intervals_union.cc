@@ -23,7 +23,7 @@ struct EndpointProper {
     }
 };
 
-vector<Interval> UnionOfIntervals(vector<Interval> intervals) {
+vector<Interval> UnionOfIntervals(const vector<Interval> &intervals) {
     vector<EndpointProper> endpoints;
     for (const auto &interval : intervals) {
         endpoints.push_back({interval.left, 1});
@@ -31,7 +31,7 @@ vector<Interval> UnionOfIntervals(vector<Interval> intervals) {
     }
     std::sort(endpoints.begin(), endpoints.end());
 
-    Interval::Endpoint last_start;
+    Interval::Endpoint last_start{};
     int p = 0;
 
     vector<Interval> result;
@@ -45,7 +45,7 @@ vector<Interval> UnionOfIntervals(vector<Interval> intervals) {
             if (i->cardinality < 0) lowest += i->cardinality;
             i++;
         } while (i != endpoints.cend() && i->point.val == pt.point.val);
-        if (!pt.point.is_closed && p > 0 && lowest == 0 || p + pt.cardinality == 0) {
+        if ((!pt.point.is_closed && p > 0 && lowest == 0) || p + pt.cardinality == 0) {
             result.push_back({last_start, pt.point});
             last_start = pt.point;
         }
