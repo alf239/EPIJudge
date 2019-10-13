@@ -14,7 +14,6 @@ struct Number {
 };
 
 vector<double> GenerateFirstKABSqrt2(int k) {
-    auto root = sqrt(2);
     auto cmp = [](Number left, Number right) { return left.value < right.value; };
     set<Number, decltype(cmp)> work(cmp);
     work.emplace(0, 0);

@@ -1,15 +1,31 @@
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <set>
 #include "test_framework/generic_test.h"
 #include "test_framework/test_failure.h"
 #include "test_framework/timed_executor.h"
 
 using std::vector;
+using std::set;
+
 
 vector<int> GrayCode(int num_bits) {
-    // TODO - you fill in here.
-    return {};
+  set<int> seen;
+  vector<int> result;
+  int current = 0;
+  for (int i = 0; i < 1 << num_bits; i++) {
+    result.push_back(current);
+    seen.insert(current);
+    int next;
+    int bit = 1;
+    do {
+      next = current ^ bit++;
+    } while (seen.count(next));
+    current = next;
+    
+  }
+  return result;
 }
 
 bool DiffersByOneBit(int x, int y) {
